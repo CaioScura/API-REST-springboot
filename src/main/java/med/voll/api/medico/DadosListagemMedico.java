@@ -4,7 +4,6 @@ package med.voll.api.medico;
  * DadosListagemMedico
  */
 public record DadosListagemMedico(
-
     String nome,
     String email,
     String crm,
