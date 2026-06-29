@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.transaction.Transactional;
-import med.voll.medico.DadosCadastroMedico;
-import med.voll.medico.Medico;
-import med.voll.medico.MedicoRepository;
+import med.voll.api.medico.DadosCadastroMedico;
+import med.voll.api.medico.Medico;
+import med.voll.api.medico.MedicoRepository;
 
 @RestController
 @RequestMapping("medicos")

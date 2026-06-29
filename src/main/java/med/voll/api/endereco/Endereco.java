@@ -1,13 +1,9 @@
-package med.voll.endereco;
+package med.voll.api.endereco;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-/**
- * Endereco
- */
 
 @Embeddable
 @Getter
@@ -24,7 +20,6 @@ public class Endereco {
     private String uf;
 
     public Endereco(DadosEndereco dados) {
-        //TODO Auto-generated constructor stub
         this.logradouro = dados.logradouro();
         this.bairro = dados.bairro();
         this.cep = dados.cep();

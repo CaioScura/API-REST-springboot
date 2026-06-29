@@ -1,11 +1,11 @@
-package med.voll.medico;
+package med.voll.api.medico;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import med.voll.endereco.Endereco;
+import med.voll.api.endereco.Endereco;
 
 
 @Table(name = "medicos")
@@ -29,12 +29,11 @@ public class Medico {
     private Endereco endereco;
 
     public Medico(DadosCadastroMedico dados) {
-        //TODO Auto-generated constructor stub
         this.nome = dados.nome();
         this.email = dados.email();
         this.crm = dados.crm();
         this.especialidade = dados.especialidade();
         this.endereco = new Endereco(dados.endereco());
     }
-    
+
 }
