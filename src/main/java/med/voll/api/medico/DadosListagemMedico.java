@@ -4,6 +4,7 @@ package med.voll.api.medico;
  * DadosListagemMedico
  */
 public record DadosListagemMedico(
+    Long id,
     String nome,
     String email,
     String crm,
@@ -13,6 +14,7 @@ public record DadosListagemMedico(
     //construtor que recebe um objeto medico e retorna os dados do medico
     public DadosListagemMedico(Medico medico) {
         this(
+            medico.getId(),
             medico.getNome(), 
             medico.getEmail(), 
             medico.getCrm(),
