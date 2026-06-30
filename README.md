@@ -1,6 +1,7 @@
 # API REST - Voll Med
 
-Trilha da Alura Java e Spring Boot: Aprenda a criar aplicações com o framework mais amado do mundo Java
+Trilha da Alura Java e Spring Boot: Aprenda a criar aplicações com o framework mais amado do mundo Java.
+
 API REST desenvolvida com Spring Boot para gerenciamento de médicos e pacientes de uma clínica médica.
 
 ---
