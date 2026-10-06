@@ -9,18 +9,19 @@ import med.voll.api.domain.endereco.DadosEndereco;
 
 public record DadosCadastroMedico(
     //validacao de campos obrigatorios, caso nao seja informado o spring vai retornar um erro 400
-    @NotBlank//not blank para strings
+    @NotBlank(message = "Nome é obrigatorio")//mensagem de erro personalizada
+    //not blank para strings
     String nome, 
 
-    @NotBlank
-    @Email
+    @NotBlank(message = "Email é obrigatorio")
+    @Email(message = "Formato de email inválido")
     String email, 
 
-    @NotBlank
+    @NotBlank(message = "Telefone é obrigatorio")
     String telefone,
 
-    @NotBlank
-    @Pattern(regexp = "\\d{4,6}")//quantos digitos o crm deve ter, no caso entre 4 e 6
+    @NotBlank(message = "CRM é obrigatorio")
+    @Pattern(regexp = "\\d{4,6}", message = "Formato de CRM inválido")//quantos digitos o crm deve ter, no caso entre 4 e 6
     String crm, 
 
     @NotNull

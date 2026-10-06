@@ -34,7 +34,7 @@ public class TratadorDeErros {
 
 
     //DTO de erro de validação, que vai ser retornado para o cliente quando a validação dos dados de entrada falhar
-    //foi criado um record DTO aqui mesmo, pois so sera usado aqui
+    //foi criado um record DTO aqui mesmo, pois so sera
     private record DadosErroValidacao(String campo, String mensagem) {
         public DadosErroValidacao(FieldError erro) {
             this(erro.getField(), erro.getDefaultMessage());
