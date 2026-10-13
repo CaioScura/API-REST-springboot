@@ -1,6 +1,7 @@
 package med.voll.api.infra.security;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -12,6 +13,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 //====== STATELESS ======//
 //stateless pq é uma API Rest
@@ -20,6 +22,10 @@ import org.springframework.security.web.SecurityFilterChain;
 //personalizar configuracoes de seguraca
 @EnableWebSecurity
 public class SecurityConfigurations {
+
+    @Autowired
+    private SecurityFilter securityFilter;
+
 
     //devolver um objeto (@Bean)
     @Bean
@@ -38,6 +44,9 @@ public class SecurityConfigurations {
                     //qualquer outra url que nao seja /login, precisa de autenticacao
                     req.anyRequest().authenticated();
                 })
+
+                //executar o meu filtro antes do filtro padrao do spring security, que é o UsernamePasswordAuthenticationFilter
+                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
 
                 .build();
 
