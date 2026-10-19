@@ -21,6 +21,19 @@ public class AgendaDeConsultas {
     private PacienteRepository pacienteRepository;
 
     public void agendar(DadosAgendamentoConsulta dados){
+        //verifica se o paciente existe
+        if (!pacienteRepository.existsById(dados.idPaciente())) {
+            throw new ValidacaoException("Id do paciente informado não existe");
+            
+        }
+
+        //verifica se o medico existe(medico é opcional) 
+        //entao tem uma validacao para saber se esta passando um valor e se esta verifica se existe)
+        if (dados.idMedico() != null && !medicoRepository.existsById(dados.idMedico())) {
+            throw new ValidacaoException("Id do médico informado não existe");
+            
+        }
+
         var paciente = pacienteRepository.findById(dados.idPaciente()).get();
         var medico = medicoRepository.findById(dados.idMedico()).get();
 
