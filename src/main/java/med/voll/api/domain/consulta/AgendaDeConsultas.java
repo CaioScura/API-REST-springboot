@@ -7,7 +7,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import med.voll.api.domain.consulta.validacoes.ValidadorAgendamentoDeConsulta;
+import med.voll.api.domain.consulta.validacoes.agendamento.ValidadorAgendamentoDeConsulta;
+import med.voll.api.domain.consulta.validacoes.cancelamento.ValidadorCancelamentoDeConsulta;
 import med.voll.api.domain.medico.Medico;
 import med.voll.api.domain.medico.MedicoRepository;
 import med.voll.api.domain.paciente.PacienteRepository;
@@ -28,8 +29,15 @@ public class AgendaDeConsultas {
     @Autowired 
     private PacienteRepository pacienteRepository;
 
+
+    ///// VALIDADORES /////
     @Autowired
     private List<ValidadorAgendamentoDeConsulta> validadores;
+
+    @Autowired
+    private List<ValidadorCancelamentoDeConsulta> validadoresCancelamento;
+
+
 
     AgendaDeConsultas(ApiApplication apiApplication) {
         this.apiApplication = apiApplication;
@@ -61,7 +69,7 @@ public class AgendaDeConsultas {
         if (medico == null) {
             throw new ValidacaoException("Não existe médico disponível nessa data");
         }
-        
+
 
         var consulta = new Consulta(null, medico, paciente, dados.data(), null);
         consultaRepository.save(consulta);
@@ -89,6 +97,8 @@ public class AgendaDeConsultas {
         if(!consultaRepository.existsById(dados.idConsulta())){
             throw new ValidacaoException("Id da consulta não existe");
         }
+
+        validadoresCancelamento.forEach(v -> v.validar(dados));
 
         var consulta = consultaRepository.getReferenceById(dados.idConsulta());
         consulta.cancelar(dados.motivo());

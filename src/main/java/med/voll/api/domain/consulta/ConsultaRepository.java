@@ -6,7 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ConsultaRepository extends JpaRepository<Consulta, Long>{
 
-    boolean exisexistsByPacienteIdAndDataBetween(Long idPaciente, LocalDateTime primeiroHorario, LocalDateTime ultimoHorario);
+    boolean existsByPacienteIdAndDataBetween(Long idPaciente, LocalDateTime primeiroHorario, LocalDateTime ultimoHorario);
 
-    boolean exisexistsByMedicoIdAndData(Long idMedico, LocalDateTime data);
+    // boolean existsByMedicoIdAndData(Long idMedico, LocalDateTime data);
+
+    boolean existsByMedicoIdAndDataAndMotivoCancelamentoIsNull(Long idMedico, LocalDateTime data);
 }

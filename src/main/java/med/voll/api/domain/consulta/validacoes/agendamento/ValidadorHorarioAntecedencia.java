@@ -1,4 +1,4 @@
-package med.voll.api.domain.consulta.validacoes;
+package med.voll.api.domain.consulta.validacoes.agendamento;
 
 import java.time.DayOfWeek;
 import java.time.Duration;
@@ -10,7 +10,7 @@ import med.voll.api.domain.consulta.DadosAgendamentoConsulta;
 import med.voll.api.domain.consulta.ValidacaoException;
 
 
-@Component 
+@Component("ValidadorHorarioAntecedenciaAgendamento")
 public class ValidadorHorarioAntecedencia implements ValidadorAgendamentoDeConsulta {
 
 
