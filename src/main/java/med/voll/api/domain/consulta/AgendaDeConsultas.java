@@ -1,5 +1,6 @@
 package med.voll.api.domain.consulta;
 
+import med.voll.api.ApiApplication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +10,8 @@ import med.voll.api.domain.paciente.PacienteRepository;
 
 @Service 
 public class AgendaDeConsultas {
+
+    private final ApiApplication apiApplication;
 
     @Autowired 
     private ConsultaRepository consultaRepository;
@@ -20,6 +23,10 @@ public class AgendaDeConsultas {
     //carregar do banco o paciente
     @Autowired 
     private PacienteRepository pacienteRepository;
+
+    AgendaDeConsultas(ApiApplication apiApplication) {
+        this.apiApplication = apiApplication;
+    }
 
     public void agendar(DadosAgendamentoConsulta dados){
         //verifica se o paciente existe
@@ -38,7 +45,7 @@ public class AgendaDeConsultas {
         var paciente = pacienteRepository.getReferenceById(dados.idPaciente());
         var medico = escolherMedico(dados);
 
-        var consulta = new Consulta(null, medico, paciente, dados.data());
+        var consulta = new Consulta(null, medico, paciente, dados.data(), null);
         consultaRepository.save(consulta);
     }
 
@@ -55,6 +62,16 @@ public class AgendaDeConsultas {
         //vai trazer um medico aleatorio de acordo com a especialidade do medico e da data disponivel
         //cada um vem de parametro
         return medicoRepository.escolherMedicoAleatórioLivreNaData(dados.especialidade(), dados.data());
+    }
+
+
+    public void cancelar(DadosCancelamentoConsulta dados){
+        if(!consultaRepository.existsById(dados.idConsulta())){
+            throw new ValidacaoException("Id da consulta não existe");
+        }
+
+        var consulta = consultaRepository.getReferenceById(dados.idConsulta());
+        consulta.cancelar(dados.motivo());
     }
 
 }

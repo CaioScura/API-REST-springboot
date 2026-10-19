@@ -1,0 +1,1 @@
+alter table consultas add column motivo_cancelamento varchar(100);V8__alter-table-condultas-add-column-motivo-cancelamento
