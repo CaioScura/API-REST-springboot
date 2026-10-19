@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import jakarta.persistence.EntityNotFoundException;
+import med.voll.api.domain.consulta.ValidacaoException;
 
 //indicar que é uma classe que vai tratar os erros da aplicação, e vai interceptar as exceções lançadas pelos controllers
 @RestControllerAdvice 
@@ -39,5 +40,13 @@ public class TratadorDeErros {
         public DadosErroValidacao(FieldError erro) {
             this(erro.getField(), erro.getDefaultMessage());
         }
+    }
+
+
+
+    //tratamento de erro para a validacao de tratamento de erro
+    @ExceptionHandler(ValidacaoException.class)
+    public ResponseEntity tratarErroRegraDeNegocio(ValidacaoException ex) {        
+        return ResponseEntity.badRequest().body(ex.getMessage());
     }
 }
