@@ -3,6 +3,7 @@ package med.voll.api.domain.consulta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import med.voll.api.domain.medico.Medico;
 import med.voll.api.domain.medico.MedicoRepository;
 import med.voll.api.domain.paciente.PacienteRepository;
 
@@ -34,11 +35,26 @@ public class AgendaDeConsultas {
             
         }
 
-        var paciente = pacienteRepository.findById(dados.idPaciente()).get();
-        var medico = medicoRepository.findById(dados.idMedico()).get();
+        var paciente = pacienteRepository.getReferenceById(dados.idPaciente());
+        var medico = escolherMedico(dados);
 
         var consulta = new Consulta(null, medico, paciente, dados.data());
         consultaRepository.save(consulta);
+    }
+
+    
+    private Medico escolherMedico(DadosAgendamentoConsulta dados) {
+        if(dados.idMedico() != null){
+            return medicoRepository.getReferenceById(dados.idMedico());
+        }
+
+        if(dados.especialidade() == null){
+            throw new ValidacaoException("Especialidade obrigatória quando médico nao for escolhido");
+        }
+
+        //vai trazer um medico aleatorio de acordo com a especialidade do medico e da data disponivel
+        //cada um vem de parametro
+        return medicoRepository.escolherMedicoAleatórioLivreNaData(dados.especialidade(), dados.data());
     }
 
 }
