@@ -89,7 +89,7 @@ public class AgendaDeConsultas {
 
         //vai trazer um medico aleatorio de acordo com a especialidade do medico e da data disponivel
         //cada um vem de parametro
-        return medicoRepository.escolherMedicoAleatórioLivreNaData(dados.especialidade(), dados.data());
+        return medicoRepository.escolherMedicoAleatorioLivreNaData(dados.especialidade(), dados.data());
     }
 
 
